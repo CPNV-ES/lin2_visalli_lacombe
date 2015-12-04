@@ -115,3 +115,5 @@ chown -vR user repertorie
 ## var du serveur nginx
 
 cat /var/log/nginx/error.log  
+
+Créer instance utilisateur php fpm   http://www.binarytides.com/php-fpm-separate-user-uid-linux/

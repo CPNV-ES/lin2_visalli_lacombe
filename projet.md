@@ -88,7 +88,7 @@ Donner les droits du user à la db
 *
 GRANT ALL PRIVILEGES ON nomdevotredb.* TO 'nomdevotreutilisateur'@'%' WITH GRANT OPTION;
 
-
+## Gestion des droits
 
 Créer lien symbolique  
 ln -s /srv/data-user/marco /home/marco/www

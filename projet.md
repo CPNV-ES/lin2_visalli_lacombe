@@ -19,7 +19,7 @@ Installer nginx
 apt-get install nginx
 
 Configurer nginx.conf dans /etc/nginx  
-* user www-data;
+* user nginx;
 * worker_processes 1;
 * access_log off;
 * client_max_body_size 12m;  (dans le param http)
@@ -62,6 +62,17 @@ Modifier php.ini
 * allow_url_fopen = Off
 * post_max_size = 12M
 
+Corriger :
+vim.tiny /etc/php5/fpm/pool.d/www.conf
+
+user = nginx
+group = nginx
+
+listen.owner = nginx
+listen.group = nginx
+
+
+
 ## Install MariaDB  
 
 apt-get install mariadb-server
@@ -100,3 +111,7 @@ systemctl restart mysql.service
 
 ### Attribuer propriétaire d'un répertorie à un utilisateur
 chown -vR user repertorie
+
+## var du serveur nginx
+
+cat /var/log/nginx/error.log  

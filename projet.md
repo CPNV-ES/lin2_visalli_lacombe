@@ -28,6 +28,7 @@ Aller dans /etc/nginx/sites-enable
 * rm example_ssl.conf default.conf default
 
 Créer une nouvelle config  
+* de base enlever php pour mettre un simple html  
 nano maconfig.conf  
 En collant ce contenu et modifier le chemin root  
 
@@ -115,5 +116,7 @@ chown -vR user repertorie
 ## var du serveur nginx
 
 cat /var/log/nginx/error.log  
+
+## Instance serveur par utilisateur
 
 Créer instance utilisateur php fpm   http://www.binarytides.com/php-fpm-separate-user-uid-linux/

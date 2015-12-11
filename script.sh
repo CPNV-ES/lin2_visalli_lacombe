@@ -67,9 +67,3 @@ EOF
 echo $line
 echo "Entry the root password for access to mysql : "
 echo "CREATE USER '$1'@'localhost' IDENTIFIED BY '123'; create database $1; GRANT ALL PRIVILEGES ON $1.* TO '$1'@'localhost' WITH GRANT OPTION;" | mysql -u root -p
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22

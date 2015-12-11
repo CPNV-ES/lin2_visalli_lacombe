@@ -13,12 +13,8 @@ _Technicien ES -  CPNV_
 Forcer la mise à jour de debian
 * apt-get update && apt-get upgrade   
 
-<<<<<<< HEAD
 - - -
-## installation de Nginx
-=======
 ## Installation de Nginx
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
 
 On va mettre les bons dépots
 * nano /etc/apt/sources.list
@@ -38,36 +34,25 @@ Configurer nginx.conf dans /etc/nginx
 Aller dans /etc/nginx/sites-enable  
 * rm example_ssl.conf default.conf default
 
-<<<<<<< HEAD
 Créer une nouvelle config  
 * de base enlever php pour mettre un simple html à la racine du serveur  
-=======
 Créer une nouvelle config par défaut
 * pour la config de base je préconise d'enlever php pour mettre un simple html   
 
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
-nano maconfig.conf  
+* nano maconfig.conf  
 
 En collant ce contenu et modifier le chemin root  
 Pour ma part j'ai décidé de mettre les fichiers dans /srv/data-user/votre-utilisateur
 
-<<<<<<< HEAD
 
-    server {
-      listen 80;
-=======
---  
-server {  
+    server {  
 
     listen 80;
     root /chemin/vers/votre/site;
     index index.html index.htm;
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
-
       root /chemin/vers/votre/site;
       index index.html index.htm;
 
-<<<<<<< HEAD
       server_name mydomainname.com www.mydomainname.com;
 
       location / {
@@ -82,12 +67,10 @@ Installer php fpm
 * apt-get install php5-fpm php5-mysqlnd  
 Modifier php.ini
 * cd /etc/php5/fpm
-=======
-    location / {
-            try_files $uri $uri/ /index.php;
-    }    
-}
---
+* vi php.ini
+* upload_max_filesize = 10M
+* allow_url_fopen = Off
+* post_max_size = 12M
 
 ## Installer php fpm
 Ensuite nous allons installer les paquets pour php
@@ -97,27 +80,20 @@ Configuration de base, modifier php.ini
 
 cd /etc/php5/fpm  
 
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
 * vi php.ini
 * upload_max_filesize = 10M
 * allow_url_fopen = Off
 * post_max_size = 12M
 
-<<<<<<< HEAD
-- - -
-=======
 Ensuite nous nous occupons des pool php
 vim.tiny /etc/php5/fpm/pool.d/www.conf
 
-user = nginx
-group = nginx
+user = nginx  
+group = nginx  
 
-listen.owner = nginx
-listen.group = nginx
+listen.owner = nginx  
+listen.group = nginx  
 
-
-
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
 ## Install MariaDB  
 
 * apt-get install mariadb-server
@@ -130,12 +106,11 @@ Commenter cette ligne \#bind-address = 127.0.0.1
 ajouter cette ligne  
 * skip-networking  
 
-<<<<<<< HEAD
-- - -
 ## Créer un fichier newdomain.sh
   touch newdomain.sh
 
-  Ajouter le droit d'execution de script
+Ajouter le droit d'execution de script  
+copier le contenu du fichier script.sh du depos git
 
 Executer le script
 ./newdomain.sh user
@@ -150,14 +125,11 @@ Créer un répertoire dans
         * mkdir /srv/data-user   
 
 Vous pouvez aussi installer le système de fichier ailleurs  
-=======
 S'identifier avec un compte utilisateur, puis se connecter en root
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
 
 Créer lien symbolique dans le home du user  
         * ln -s /srv/data-user/user /home/user/www
 
-<<<<<<< HEAD
 Changer les proprietaire pour donné accés au contenu au user
         * chown -vR user /srv/data-user/user
 
@@ -170,38 +142,28 @@ Régler les droits entre user
 Régler les droits dans le home
         *  chmod 770 /home/$1
 
-Se connecter à maria db, en root pour le moment  
-
+Se connecter à maria db, en root pour le moment
         * mysql -u root -p
 
-Créer un utilisateur   
-        * CREATE USER 'USER_NAME' IDENTIFIED BY 'PASSWORD';  
-=======
+
 Crééer un utilisateur   
-* CREATE USER 'USER_NAME' IDENTIFIED BY 'PASSWORD';  
-CREATE USER 'test'@'%' IDENTIFIED BY '';
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
+        * CREATE USER 'USER_NAME' IDENTIFIED BY 'PASSWORD';  
 
 Créer database
         * CREATE DATABASE nomdevotredb;  
 
-<<<<<<< HEAD
 Donner les droits du user à la db
-
         * GRANT ALL PRIVILEGES ON nomdevotredb.* TO 'user'@'%'WITH GRANT OPTION;
 
 Quitter MariaDB (ctrl+C) et se connecter avec l'utilisateur crée
-
         * mysql -u USER_NAME -p
 
 Afficher toutes les bases de données
-
         * SHOW databases;
 
 Selectionner la base de données crée
-
         * USE nomdevotredb;
-=======
+
 Donner les droits du user à la db  
 * GRANT ALL PRIVILEGES ON nomdevotredb.* TO 'nomdevotreutilisateur'@'%' WITH GRANT OPTION;  
 
@@ -233,11 +195,9 @@ GRANT DROP ON TABLE thedatabase.* TO user1
 
 Lancer le script
 Remplir les informations demandées
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
 
 Créer une config user dans nginx
 
-<<<<<<< HEAD
         server {
             listen 80;
             root /srv/data-user/user;
@@ -281,12 +241,7 @@ Commande serveur
       systemctl restart nginx.service  
       systemctl restart php5-fpm.service  
       systemctl restart mysql.service  
-=======
-Commande serveur  
-systemctl restart nginx.service  
-systemctl restart php5-fpm.service  
-systemctl restart mysql.service  
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22
+
 
 - - -
 ### Attribuer propriétaire d'un répertorie à un utilisateur
@@ -300,10 +255,7 @@ systemctl restart mysql.service
 - - -
 ## Instance serveur par utilisateur site web
 
-<<<<<<< HEAD
-      Créer instance utilisateur php fpm   http://www.binarytides.com/php-fpm-separate-user-uid-linux/
-=======
+réer instance utilisateur php fpm   http://www.binarytides.com/php-fpm-separate-user-uid-linux/
 ## Instance serveur par utilisateur
 
 Créer instance utilisateur php fpm   http://www.binarytides.com/php-fpm-separate-user-uid-linux/
->>>>>>> a650bf99f2bdf42a1a5fcac069249ef995097b22

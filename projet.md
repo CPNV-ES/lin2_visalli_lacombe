@@ -7,7 +7,7 @@ bla bla bla bla
 Forcer la mise à jour de debian
 * apt-get update && apt-get upgrade   
 
-## installation de Nginx
+## Installation de Nginx
 
 nano /etc/apt/sources.list
 commnenter toute les lignes et ajouter celle-ci :
@@ -86,7 +86,7 @@ Commenter cette ligne \#bind-address = 127.0.0.1
 ajouter cette ligne  
 * skip-networking  
 
-Se connecter à maria db en root pour le moment  
+S'identifier avec un compte utilisateur, puis se connecter en root
 
 * mysql -u root -p
 
@@ -96,9 +96,26 @@ Crééer un utilisateur
 Créer database
 * CREATE DATABASE nomdevotredb;  
 
-Donner les droits du user à la db
-*
-GRANT ALL PRIVILEGES ON nomdevotredb.* TO 'nomdevotreutilisateur'@'%' WITH GRANT OPTION;
+Donner les droits du user à la db  
+* GRANT ALL PRIVILEGES ON nomdevotredb.* TO 'nomdevotreutilisateur'@'%' WITH GRANT OPTION;  
+
+Quitter MariaDB (ctrl+C) et se connecter avec l'utilisateur crée  
+* mysql -u USER_NAME -p  
+
+Afficher toutes les bases de données
+* SHOW databases;
+
+Selectionner la base de données crée  
+* USE nomdevotredb;
+
+### Quelques requêtes utiles pour commencer
+
+Créer une table dans la base de données  
+* CREATE TABLE 'nomdevotredb'.'nomdevotretable' ( 'nomdevotrecolonne' INT NOT NULL ) ENGINE = InnoDB;  
+
+Insérer des données dans la base de données  
+* INSERT INTO 'nomdevotredb'.'nomdevotretable' ('nomdevotrecolonne') VALUES ('votrevaleur');  
+
 
 ## Attribué un espace personnel à un utilisateur
 

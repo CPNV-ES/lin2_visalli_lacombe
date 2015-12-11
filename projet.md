@@ -52,7 +52,7 @@ server {
 
 ## Installer php fpm
 Ensuite nous allons installer les paquets pour php
-* apt-get install php5-fpm php5-mysqlnd   
+* apt-get install php5-fpm php5-mysqlnd php5-mysql  
 
 Configuration de base, modifier php.ini
 
@@ -92,6 +92,7 @@ S'identifier avec un compte utilisateur, puis se connecter en root
 
 Crééer un utilisateur   
 * CREATE USER 'USER_NAME' IDENTIFIED BY 'PASSWORD';  
+CREATE USER 'test'@'%' IDENTIFIED BY '';
 
 Créer database
 * CREATE DATABASE nomdevotredb;  
@@ -131,7 +132,7 @@ Remplir les informations demandées
 Créer lien symbolique  
 ln -s /srv/data-user/marco /home/marco/www
 
-Commande serveur
+Commande serveur  
 systemctl restart nginx.service  
 systemctl restart php5-fpm.service  
 systemctl restart mysql.service  

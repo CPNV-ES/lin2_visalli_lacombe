@@ -100,6 +100,10 @@ Donner les droits du user à la db
 *
 GRANT ALL PRIVILEGES ON nomdevotredb.* TO 'nomdevotreutilisateur'@'%' WITH GRANT OPTION;
 
+REVOKE DROP ON tutorial_database.* FROM 'testuser'@'localhost';
+
+GRANT DROP ON TABLE thedatabase.* TO user1
+
 ## Attribué un espace personnel à un utilisateur
 
 * adduser nom-utilisateur  

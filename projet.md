@@ -27,43 +27,43 @@ Configurer nginx.conf dans /etc/nginx
 Aller dans /etc/nginx/sites-enable  
 * rm example_ssl.conf default.conf default
 
-Créer une nouvelle config  
-* de base enlever php pour mettre un simple html  
+Créer une nouvelle config par défaut
+* pour la config de base je préconise d'enlever php pour mettre un simple html   
+
 nano maconfig.conf  
+
 En collant ce contenu et modifier le chemin root  
+Pour ma part j'ai décidé de mettre les fichiers dans /srv/data-user/votre-utilisateur
 
-- - -
-server {
+--  
+server {  
+
     listen 80;
-
     root /chemin/vers/votre/site;
-    index index.php index.html index.htm;
+    index index.html index.htm;
 
     server_name mydomainname.com www.mydomainname.com;
 
     location / {
             try_files $uri $uri/ /index.php;
-    }
-
-    location ~ \.php$ {
-            try_files $uri =404;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            include fastcgi_params;
-            fastcgi_pass unix:/var/run/php5-fpm.sock;
-    }
+    }    
 }
-- - -  
+--
 
 ## Installer php fpm
-* apt-get install php5-fpm php5-mysqlnd  
-Modifier php.ini
-* cd /etc/php5/fpm
+Ensuite nous allons installer les paquets pour php
+* apt-get install php5-fpm php5-mysqlnd   
+
+Configuration de base, modifier php.ini
+
+cd /etc/php5/fpm  
+
 * vi php.ini
 * upload_max_filesize = 10M
 * allow_url_fopen = Off
 * post_max_size = 12M
 
-Corriger :
+Ensuite nous nous occupons des pool php
 vim.tiny /etc/php5/fpm/pool.d/www.conf
 
 user = nginx
@@ -100,7 +100,12 @@ Donner les droits du user à la db
 *
 GRANT ALL PRIVILEGES ON nomdevotredb.* TO 'nomdevotreutilisateur'@'%' WITH GRANT OPTION;
 
-## Gestion des droits
+## Attribué un espace personnel à un utilisateur
+
+* adduser nom-utilisateur  
+
+Lancer le script
+Remplir les informations demandées
 
 Créer lien symbolique  
 ln -s /srv/data-user/marco /home/marco/www

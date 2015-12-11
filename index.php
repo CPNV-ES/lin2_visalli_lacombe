@@ -8,7 +8,7 @@
 
         try
         {
-        $base= new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'marco', '123');
+        $base= new PDO('mysql:host=localhost;dbname=votredb;charset=utf8', 'user', 'password');
         }
                 catch(Exception $e){
 
@@ -28,6 +28,10 @@
         </form>
 
 <p>This page was created for testing the system</p>
+ <?php
 
+echo phpinfo();
+
+ ?>
 </body>
 </html>

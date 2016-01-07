@@ -1,12 +1,12 @@
 - - -
 # Installation d'un serveur web avec nginx php fpm mariadb
 
-Ce tutoriel permet d'installer le serveur nginx sur un serveur avec php5 fpm et mariadb. Il permet d'avoir un système multiutilisateur grâce à un espace de stockage personnel.
+Ce tutoriel permet d'installer nginx sur un serveur avec php5 fpm et mariadb. Il permet d'avoir un système multiutilisateur grâce à un espace de stockage personnel.
 
-Bonne lecture :bowtie:
 
 _Décembre 2015_  
 _Technicien ES -  CPNV_
+_Miackaël Lacombe - Marco Visalli_
 - - -
 ## Préparation de la machine
 
@@ -29,42 +29,42 @@ Il suffit de sélectionner l'iso et le périphérique (attention le périphériq
 Dans votre bios sélectionner votre périphérique en priorité et rédémarré.
 Votre machine devrait démarrer sur votre iso et commencé l'installation de debian
 
-
-
-Forcer la mise à jour de debian
-* apt-get update && apt-get upgrade   
-
-- - -
 ## Installation de Nginx
 
-On va mettre les bons dépots
-* nano /etc/apt/sources.list
-commnenter toute les lignes et ajouter celle-ci :
-* deb http://ftp.ch.debian.org/debian stable main
-* deb http://security.debian.org/ wheezy/updates main
+Insertion des bons dépots
 
-Installer nginx
-* apt-get install nginx
+    nano /etc/apt/sources.list  
+Commnentez toutes les lignes et ajoutez celle-ci :
 
-Configurer nginx.conf dans /etc/nginx  
-* user nginx;
-* worker_processes 1;
-* access_log off;
-* client_max_body_size 12m;  (dans le param http)
+    deb http://ftp.ch.debian.org/debian stable main
+    deb http://security.debian.org/ wheezy/updates main
 
-Aller dans /etc/nginx/sites-enable  
-* rm example_ssl.conf default.conf default
+Installez Nginx
 
-Créer une nouvelle config  
-* de base enlever php pour mettre un simple html à la racine du serveur  
-Créer une nouvelle config par défaut
-* pour la config de base je préconise d'enlever php pour mettre un simple html   
+    apt-get install nginx
 
-* nano maconfig.conf  
+Configurez Nginx.conf dans /etc/nginx
 
-En collant ce contenu et modifier le chemin root  
-Pour ma part j'ai décidé de mettre les fichiers dans /srv/data-user/votre-utilisateur
+    user nginx;
+    worker_processes 1;
+    access_log off;
+    client_max_body_size 12m;  (dans le param http)
 
+Rendez-vous dans /etc/nginx/sites-enable
+
+    rm example_ssl.conf default.conf default
+
+Créez une nouvelle configuration  
+* Enlevez php pour mettre un simple fichier html à la racine du serveur  
+* Créez une nouvelle configuration par défaut  
+Pour la configuration de base il est conseillé  de remplacer le php par de l'html   
+
+
+    nano maconfig.conf  
+
+
+Insertion des fichiers dans /srv/data-user/votre-utilisateur
+Copiez / collez ce code et modifiez le chemin d'accès
 
     server {  
 
@@ -82,32 +82,36 @@ Pour ma part j'ai décidé de mettre les fichiers dans /srv/data-user/votre-util
 
     }
 
-- - -
+
 ## PHP5
-Installer php fpm
-* apt-get install php5-fpm php5-mysqlnd  
+Installation php fpm
+
+    apt-get install php5-fpm php5-mysqlnd  
 Modifier php.ini
-* cd /etc/php5/fpm
+
+    cd /etc/php5/fpm
+    vi php.ini
+    upload_max_filesize = 10M
+    allow_url_fopen = Off
+    post_max_size = 12M
+
+Installez php fpm
+
+    apt-get install php5-fpm php5-mysqlnd php5-mysql  
+
+Rendez-vous dans le disser fpm
+
+    cd /etc/php5/fpm  
+
+Passez ces paramètres dans le fichier php.ini :
 * vi php.ini
 * upload_max_filesize = 10M
 * allow_url_fopen = Off
 * post_max_size = 12M
 
-## Installer php fpm
-Ensuite nous allons installer les paquets pour php
-* apt-get install php5-fpm php5-mysqlnd php5-mysql  
+Executez un pool de php
 
-Configuration de base, modifier php.ini
-
-cd /etc/php5/fpm  
-
-* vi php.ini
-* upload_max_filesize = 10M
-* allow_url_fopen = Off
-* post_max_size = 12M
-
-Ensuite nous nous occupons des pool php
-vim.tiny /etc/php5/fpm/pool.d/www.conf
+    vim.tiny /etc/php5/fpm/pool.d/www.conf
 
 user = nginx  
 group = nginx  
@@ -115,28 +119,31 @@ group = nginx
 listen.owner = nginx  
 listen.group = nginx  
 
-## Install MariaDB  
+## Installation MariaDB
 
-* apt-get install mariadb-server
+    apt-get install mariadb-server
 
-Modifier la config
-* cd /etc/mysql  
-* nano my.cnf  
+Modifiez la config
 
-Commenter cette ligne \#bind-address = 127.0.0.1  
-ajouter cette ligne  
+    cd /etc/mysql  
+    nano my.cnf  
+
+Commentez la ligne \#bind-address = 127.0.0.1  
+ajoutez cette ligne :
 * skip-networking  
 
-## Créer un fichier newdomain.sh
-  touch newdomain.sh
+Créez un fichier newdomain.sh
 
-Ajouter le droit d'execution de script  
-copier le contenu du fichier script.sh du depos git
+    touch newdomain.sh
 
-Executer le script
-./newdomain.sh user
+Ajoutez le droit d'execution de script  
+Copiez le contenu du fichier script.sh du depot git
 
-- - -
+Executez le script
+
+    ./newdomain.sh user
+
+
 ## A partir d'ici le script prend le relai pour la création d'espace par utilisateur. J'explique ici le processus du script
 
 Créer un utilisateur dans le système linux

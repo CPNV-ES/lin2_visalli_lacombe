@@ -1,5 +1,5 @@
 - - -
-# Installation nginx php fpm mariadb
+# Installation d'un serveur web avec nginx php fpm mariadb
 
 Ce tutoriel permet d'installer le serveur nginx sur un serveur avec php5 fpm et mariadb. Il permet d'avoir un système multiutilisateur grâce à un espace de stockage personnel.
 
@@ -8,7 +8,28 @@ Bonne lecture :bowtie:
 _Décembre 2015_  
 _Technicien ES -  CPNV_
 - - -
-## Préparer la machine
+## Préparation de la machine
+
+Le projet est prévu pour une distribution Debian 8 (jessie)  
+Dans un premier temps nous allons télécharger l'iso pour l'installer, selon votre machine physique l'iso à prendre est différent.
+
+Je met ici le lien direct pour la version 64bits étant donné que c'est la configuration la plus largement répandue.
+
+http://cdimage.debian.org/debian-cd/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso
+
+Si votre machine ne correspond pas, vous pouvez trouver votre iso à cette adresse https://www.debian.org/releases/jessie/
+
+Si vous utilisez un logiciel de virtualisation pour mettre en place le serveur il suffit de créer une nouvelle machine virtuel avec l'iso téléchargé.
+
+Si vous voulez installer Debian sur une machine physique je vous conseille de suivre ces instructions.
+Il faut créer une clé usb ou un cb bootable, vous pouvez utiliser ce logiciel
+http://sourceforge.net/projects/win32diskimager/
+
+Il suffit de sélectionner l'iso et le périphérique (attention le périphérique sera formaté)
+Dans votre bios sélectionner votre périphérique en priorité et rédémarré.
+Votre machine devrait démarrer sur votre iso et commencé l'installation de debian
+
+
 
 Forcer la mise à jour de debian
 * apt-get update && apt-get upgrade   

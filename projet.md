@@ -5,8 +5,8 @@ Ce tutoriel permet d'installer nginx sur un serveur avec php5 fpm et mariadb. Il
 
 
 _Décembre 2015_  
-_Technicien ES -  CPNV_
-_Miackaël Lacombe - Marco Visalli_
+_Technicien ES -  CPNV_  
+_Mickaël Lacombe - Marco Visalli_
 - - -
 ## Préparation de la machine
 

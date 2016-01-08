@@ -31,7 +31,7 @@ Votre machine devrait démarrer sur votre iso et commencé l'installation de deb
 
 ## Installation de Nginx
 
-Insertion des bons dépots
+Insertion des dépots
 
     nano /etc/apt/sources.list  
 Commnentez toutes les lignes et ajoutez celle-ci :
@@ -57,11 +57,9 @@ Rendez-vous dans /etc/nginx/sites-enable
 Créez une nouvelle configuration  
 * Enlevez php pour mettre un simple fichier html à la racine du serveur  
 * Créez une nouvelle configuration par défaut  
-Pour la configuration de base il est conseillé  de remplacer le php par de l'html   
-
+Pour la configuration de base il est conseillé de remplacer le php par de l'html   
 
     nano maconfig.conf  
-
 
 Insertion des fichiers dans /srv/data-user/votre-utilisateur
 Copiez / collez ce code et modifiez le chemin d'accès
@@ -74,7 +72,7 @@ Copiez / collez ce code et modifiez le chemin d'accès
       root /chemin/vers/votre/site;
       index index.html index.htm;
 
-      server_name mydomainname.com www.mydomainname.com;
+      server_name votre_nom_de_domaine.com.com www.votre_nom_de_domaine.com.com;
 
       location / {
               try_files $uri $uri/ /index.php;
@@ -130,7 +128,8 @@ Modifiez la config
 
 Commentez la ligne \#bind-address = 127.0.0.1  
 ajoutez cette ligne :
-* skip-networking  
+
+    skip-networking  
 
 Créez un fichier newdomain.sh
 
@@ -213,7 +212,7 @@ Donnez les droits du user à la db
 
 Attribution d'un espace personnel à un utilisateur
 
-    adduser nom-utilisateur  
+    adduser nomutilisateur  
 
 Executez le script
 Donnez les informations demandées

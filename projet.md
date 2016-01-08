@@ -16,11 +16,11 @@ Je met ici le lien direct pour la version 64bits que nous avons utilisé.
 
 http://cdimage.debian.org/debian-cd/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso
 
-Vous pouvez l'installer en créant une clé usb ou un cd bootable *Il y a beaucoup d'info sur internet pour cette partie*  
+Vous pouvez l'installer en créant une clé usb ou un cd bootable *Il y a beaucoups d'info sur internet pour cette partie*  
 
 ### Installation Debian  
 
-Lors de l'installation il n'y a pas de point sensible, il faut juste rentrer les données demandées à l'écran, comme le compte root etc.
+Lors de l'installation il n'y a pas de point sensible, il faut juste rentrer les données demandées à l'écran, comme le compte root, etc.
 
 ### Commande après installation
 
@@ -100,7 +100,7 @@ Installez php fpm
 
     apt-get install php5-fpm php5-mysqlnd php5-mysql  
 
-Rendez-vous dans le disser fpm
+Rendez-vous dans le dossier fpm
 
     cd /etc/php5/fpm  
 
@@ -112,42 +112,52 @@ Passez ces paramètres dans le fichier php.ini :
         allow_url_fopen = Off
         post_max_size = 12M
 
-Executez un pool de php (le pool permet d'avoir une instance php par utilisateur)
-
-
-user = nginx  
-group = nginx  
-
-listen.owner = nginx  
-listen.group = nginx  
-
 ## Installation MariaDB
+
+Installer mariadb
 
     apt-get install mariadb-server
 
 Modifiez la config
 
-    cd /etc/mysql  
+    cd /etc/mysql   
+
     nano my.cnf  
 
 Commentez la ligne \#bind-address = 127.0.0.1  
+
 ajoutez cette ligne :
 
     skip-networking  
+
+# Script
+A paritr d'ici le script automatise la création d'utilisateur avec son espace personnel et la configuration pour l'utilisateur
 
 Créez un fichier newdomain.sh
 
     touch newdomain.sh
 
 Ajoutez le droit d'execution de script  
-Copiez le contenu du fichier script.sh du depot git
 
-Executez le script
+        chmod +x newdomain.sh
 
-    ./newdomain.sh user
+Copiez le contenu du fichier script.sh du dépot git
 
+Exécutez le script
+
+    ./newdomain.sh nomdevotreutilisateur
+
+Donnez les informations demandées
+
+### local
+Il es possible si vous êtes sous windows et travaillez en localhost de naviguer via un domaine propre comme votresite.com
+
+Modifiez votre fichier C:\Windows\System32\drivers\etc\hosts
+
+    [ipdevotremachine] www.votresite.com
 
 ## Processus du script
+Voici la description complète du script si vous voulez l'améliorer ou l'adapter selon votre besoin
 
 Créez un utilisateur dans le système linux
 
@@ -218,8 +228,6 @@ Attribution d'un espace personnel à un utilisateur
 
     adduser nomutilisateur  
 
-Executez le script
-Donnez les informations demandées
 Créez une config user dans nginx
 
         server {
@@ -257,11 +265,10 @@ Supprimez les autres fichiers de config
         pm.max_spare_servers = 3
         chdir = /
 
-Modifiez votre fichier hosts depuis windows pour rediriger un domaine sur l'ip du serveur
-
-    [ipdevotremachine] www.user.ch
+_Fin du script_
 
 ## Reboot des services
+
 Commande serveur :
 
     systemctl restart nginx.service  

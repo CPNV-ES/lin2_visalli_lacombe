@@ -50,39 +50,33 @@ Configurez Nginx.conf
 
     nano /etc/nginx/nginx.conf
 
+ Modifier ces informations
+
     user nginx;
     worker_processes 1;
     access_log off;
     client_max_body_size 12m;  (dans le param http)
 
-Rendez-vous dans /etc/nginx/sites-enable
+Rendez-vous dans /etc/nginx/sites-enable et supprimer les config par défaut
 
     rm example_ssl.conf default.conf default
 
-Créez une nouvelle configuration  
-* Enlevez php pour mettre un simple fichier html à la racine du serveur  
-* Créez une nouvelle configuration par défaut  
-Pour la configuration de base il est conseillé de remplacer le php par de l'html   
+Créez une nouvelle configuration
 
-    nano maconfig.conf  
+        nano maconfig.conf  
 
-Insertion des fichiers dans /srv/data-user/votre-utilisateur
-Copiez / collez ce code et modifiez le chemin d'accès
+Pour la config de base je préconise d'enlever php pour mettre un simple fichier à la racine du serveur html    
+Coller ce contenu et modifier le chemin root  
+Pour ma part j'ai décidé de mettre les fichiers des utilisateurs dans /srv/data-user/votre-utilisateur
 
     server {  
-
     listen 80;
     root /chemin/vers/votre/site;
     index index.html index.htm;
-      root /chemin/vers/votre/site;
-      index index.html index.htm;
-
-      server_name votre_nom_de_domaine.com.com www.votre_nom_de_domaine.com.com;
-
+    server_name votre_domaine.com www.votre_domaine.com;
       location / {
-              try_files $uri $uri/ /index.php;
+              try_files $uri $uri/ /index.html;
       }
-
     }
 
 
@@ -90,9 +84,13 @@ Copiez / collez ce code et modifiez le chemin d'accès
 Installation php fpm
 
     apt-get install php5-fpm php5-mysqlnd  
+
 Modifier php.ini
 
     cd /etc/php5/fpm
+
+Trouver et modifier ces informations
+
     vi php.ini
     upload_max_filesize = 10M
     allow_url_fopen = Off
@@ -107,14 +105,15 @@ Rendez-vous dans le disser fpm
     cd /etc/php5/fpm  
 
 Passez ces paramètres dans le fichier php.ini :
-* vi php.ini
-* upload_max_filesize = 10M
-* allow_url_fopen = Off
-* post_max_size = 12M
 
-Executez un pool de php
+        nano php.ini
 
-    vim.tiny /etc/php5/fpm/pool.d/www.conf
+        upload_max_filesize = 10M
+        allow_url_fopen = Off
+        post_max_size = 12M
+
+Executez un pool de php (le pool permet d'avoir une instance php par utilisateur)
+
 
 user = nginx  
 group = nginx  
